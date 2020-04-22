@@ -5,6 +5,9 @@ import pandas as pd
 import time
 
 spark_conf = SparkConf().setMaster("local[*]").setAppName("spark_project")
+# spark_conf = SparkConf().setMaster("spark://192.168.1.150:7077").setAppName("spark_project")
+# spark_conf = SparkConf().setMaster("spark://192.168.1.150:7077").setAppName("spark_project")
+# spark_conf = SparkConf().setMaster("spark://192.168.1.150:7077").setAppName("spark_project")
 spark_context = SparkContext(conf=spark_conf)
 # from pyspark.sql import SparkSession
 # spark_session = SparkSession(spark_context)
@@ -40,19 +43,19 @@ def read_hbase(report_id_start, report_id_stop):
 def main():
     t0 = time.time()
     report_id_start = "18589802"
-    report_id_stop  = "18689802"
+    report_id_stop  = "18599802"
     hbase_rdd = read_hbase(report_id_start, report_id_stop)
-    report_counts = hbase_rdd.count()
-    print(report_counts)
+    # report_counts = hbase_rdd.count()
+    # print(report_counts)
     decode_rdd = hbase_rdd.map(lambda xxx: xxx[1])
     decode_rdd = decode_rdd.map(lambda xxx: report_decode(xxx))
-    decode_rdd.cache()
+    # decode_rdd.cache()
     # generalSummarys_rdd = decode_rdd.map(lambda xxx: xxx['generalSummarys'])
     abnormals_rdd = decode_rdd.map(lambda xxx: summary_analyse(xxx))
     abnormals_rdd = abnormals_rdd.map(lambda xxx: {"abnormals": xxx})
     result_list = abnormals_rdd.collect()
     result_df = pd.DataFrame.from_dict(result_list)
-    result_df.to_csv("../01output/result_df.csv")
+    result_df.to_csv("../result_df.csv")
     t1 = time.time()
     print('总耗时：', t1-t0)
     
