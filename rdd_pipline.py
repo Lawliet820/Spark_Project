@@ -43,7 +43,7 @@ def read_hbase(report_id_start, report_id_stop):
 def main():
     t0 = time.time()
     report_id_start = "18589802"
-    report_id_stop  = "18599802"
+    report_id_stop  = "18689802"
     hbase_rdd = read_hbase(report_id_start, report_id_stop)
     # report_counts = hbase_rdd.count()
     # print(report_counts)
