@@ -2,7 +2,7 @@ from pyspark import SparkConf, SparkContext
 from mod.decodeReport import report_decode
 from mod.summaryAnalyse_v4 import summary_analyse
 
-spark_conf = SparkConf().setMaster("local").setAppName("ReadHbase")
+spark_conf = SparkConf().setMaster("local").setAppName("spark_project")
 spark_context = SparkContext(conf=spark_conf)
 # from pyspark.sql import SparkSession
 # spark_session = SparkSession(spark_context)
@@ -46,7 +46,7 @@ def main():
     decode_rdd.cache()
     generalSummarys_rdd = decode_rdd.map(lambda xxx: xxx['generalSummarys'])
     abnormals_rdd = generalSummarys_rdd.map(lambda xxx: summary_analyse(xxx))
-    print(abnormals_rdd)
+    print(abnormals_rdd.collect())
 
     
 if __name__ == '__main__':
