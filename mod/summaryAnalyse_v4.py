@@ -6,7 +6,7 @@ def load_generalSummary_std_name_rels():
     """
     加载总检1标准化异常名称映射表
     """
-    df = pd.read_csv("../datas/abn_std_v1.0.7.csv")
+    df = pd.read_csv("./datas/abn_std_v1.0.7.csv")
     std_name_list = df["标准化名称"]
     show_name_list = df["检出名称"]
     name_mapper = {}
