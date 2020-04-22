@@ -44,8 +44,8 @@ def main():
     decode_rdd = hbase_rdd.map(lambda xxx: xxx[1])
     decode_rdd = decode_rdd.map(lambda xxx: report_decode(xxx))
     decode_rdd.cache()
-    generalSummarys_rdd = decode_rdd.map(lambda xxx: xxx['generalSummarys'])
-    abnormals_rdd = generalSummarys_rdd.map(lambda xxx: summary_analyse(xxx))
+    # generalSummarys_rdd = decode_rdd.map(lambda xxx: xxx['generalSummarys'])
+    abnormals_rdd = decode_rdd.map(lambda xxx: summary_analyse(xxx))
     print(abnormals_rdd.collect())
 
     
