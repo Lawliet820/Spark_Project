@@ -1,6 +1,6 @@
 from pyspark import SparkConf, SparkContext
-from src.mod.decodeReport import report_decode
-from src.mod.summaryAnalyse_v4 import summary_analyse
+from mod.decodeReport import report_decode
+from mod.summaryAnalyse_v4 import summary_analyse
 
 spark_conf = SparkConf().setMaster("local").setAppName("ReadHbase")
 spark_context = SparkContext(conf=spark_conf)
@@ -17,7 +17,7 @@ def read_hbase(report_id_start, report_id_stop):
         "hbase.mapreduce.inputtable": hbase_table,
         "hbase.mapreduce.scan.row.start": report_id_start,
         "hbase.mapreduce.scan.row.stop": report_id_stop,
-        "hbase.mapreduce.scan.columns": "info:cont info:bd info:sex"
+        "hbase.mapreduce.scan.columns": "info:cont"
     }
 
     keyConv = "org.apache.spark.examples.pythonconverters.ImmutableBytesWritableToStringConverter"
@@ -29,7 +29,8 @@ def read_hbase(report_id_start, report_id_stop):
         "org.apache.hadoop.hbase.client.Result",
         keyConverter=keyConv,
         valueConverter=valueConv,
-        conf=hbase_conf
+        conf=hbase_conf,
+        batchSize=0,
     )
     return hbase_rdd
 
