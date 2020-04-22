@@ -4,7 +4,7 @@ from mod.summaryAnalyse_v4 import summary_analyse
 import pandas as pd
 import time
 
-spark_conf = SparkConf().setMaster("local").setAppName("spark_project")
+spark_conf = SparkConf().setMaster("local[*]").setAppName("spark_project")
 spark_context = SparkContext(conf=spark_conf)
 # from pyspark.sql import SparkSession
 # spark_session = SparkSession(spark_context)
@@ -40,7 +40,7 @@ def read_hbase(report_id_start, report_id_stop):
 def main():
     t0 = time.time()
     report_id_start = "18589802"
-    report_id_stop = "19589802"
+    report_id_stop  = "18689802"
     hbase_rdd = read_hbase(report_id_start, report_id_stop)
     report_counts = hbase_rdd.count()
     print(report_counts)
