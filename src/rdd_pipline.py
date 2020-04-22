@@ -46,3 +46,7 @@ def main():
     generalSummarys_rdd = decode_rdd.map(lambda xxx: xxx['generalSummarys'])
     abnormals_rdd = generalSummarys_rdd.map(lambda xxx: summary_analyse(xxx))
     print(abnormals_rdd)
+
+    
+if __name__ == '__main__':
+    main()
