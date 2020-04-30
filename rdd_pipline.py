@@ -4,10 +4,8 @@ from mod.summaryAnalyse_v4 import summary_analyse
 import pandas as pd
 import time
 
-spark_conf = SparkConf().setMaster("local[*]").setAppName("spark_project")
-# spark_conf = SparkConf().setMaster("spark://192.168.1.150:7077").setAppName("spark_project")
-# spark_conf = SparkConf().setMaster("spark://192.168.1.150:7077").setAppName("spark_project")
-# spark_conf = SparkConf().setMaster("spark://192.168.1.150:7077").setAppName("spark_project")
+# spark_conf = SparkConf().setMaster("local[*]").setAppName("spark_project")
+spark_conf = SparkConf().setMaster("spark://192.168.1.150:7077").setAppName("spark_project3")
 spark_context = SparkContext(conf=spark_conf)
 # from pyspark.sql import SparkSession
 # spark_session = SparkSession(spark_context)
